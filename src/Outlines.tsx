@@ -1,8 +1,8 @@
 import * as THREE from "three"
-import * as React from "react"
 import { shaderMaterial } from "@react-three/drei"
 import { extend, applyProps, ReactThreeFiber } from "@react-three/fiber"
 import { toCreasedNormals } from "three-stdlib"
+import { useLayoutEffect, useMemo, useRef, useState } from "react"
 
 const OutlinesMaterial = shaderMaterial(
   { color: new THREE.Color("black"), opacity: 1, thickness: 0.05 },
@@ -54,10 +54,10 @@ type OutlinesProps = JSX.IntrinsicElements["group"] & {
 }
 
 export function Outlines({ color = "black", opacity = 1, transparent = false, thickness = 0.05, angle = Math.PI, ...props }: OutlinesProps) {
-  const ref = React.useRef<THREE.Group>(null!)
-  const [material] = React.useState(() => new OutlinesMaterial({ side: THREE.BackSide }))
-  React.useMemo(() => extend({ OutlinesMaterial }), [])
-  React.useLayoutEffect(() => {
+  const ref = useRef<THREE.Group>(null!)
+  const [material] = useState(() => new OutlinesMaterial({ side: THREE.BackSide }))
+  useMemo(() => extend({ OutlinesMaterial }), [])
+  useLayoutEffect(() => {
     const group = ref.current
     const parent = group.parent as THREE.Mesh & THREE.SkinnedMesh & THREE.InstancedMesh
     if (parent && parent.geometry) {
@@ -82,9 +82,10 @@ export function Outlines({ color = "black", opacity = 1, transparent = false, th
         group.remove(mesh)
       }
     }
-  }, [angle, ref.current?.parent?.geometry])
+  }, [angle])
+  // , ref.current?.parent?.geometry
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     const group = ref.current
     console.log(group.children.length)
     const mesh = group.children[0] as THREE.Mesh<THREE.BufferGeometry, THREE.Material>
