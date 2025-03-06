@@ -12,5 +12,6 @@ export default defineConfig({
         main: 'index.html',
       }
     }
-  }
+  },
+  assetsInclude: ['**/*.hdr']
 })
