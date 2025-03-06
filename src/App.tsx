@@ -33,7 +33,7 @@ function App() {
 function Clump({ mat = new THREE.Matrix4(), vec = new THREE.Vector3() }) {
   const { outlines } = useControls({ outlines: { value: 0.0, step: 0.01, min: 0, max: 0.05 } });
   console.log("import.meta.env.BASE_URL", import.meta.env.BASE_URL)
-  const texture = useTexture(import.meta.env.BASE_URL + "cross.jpg");
+  const texture = useTexture(import.meta.env.BASE_URL + "openhuman.jpg");
   const mesh = useSphere(() => ({
     args: [1],
     mass: 1,
