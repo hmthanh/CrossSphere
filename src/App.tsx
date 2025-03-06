@@ -23,7 +23,7 @@ function App() {
         <Pointer />
         <Clump />
       </Physics>
-      <Environment files="/adamsbridge.hdr" />
+      <Environment files={import.meta.env.BASE_URL + "adamsbridge.hdr"} />
       <EffectComposer enableNormalPass multisampling={0}>
         <N8AO halfRes color="black" aoRadius={2} intensity={1} aoSamples={6} denoiseSamples={4} />
         <SMAA />
@@ -54,7 +54,7 @@ function App() {
 // }
 function Clump({ mat = new THREE.Matrix4(), vec = new THREE.Vector3() }) {
   const { outlines } = useControls({ outlines: { value: 0.0, step: 0.01, min: 0, max: 0.05 } });
-  const texture = useTexture("/cross.jpg");
+  const texture = useTexture(import.meta.env.BASE_URL + "cross.jpg");
   const mesh = useSphere(() => ({
     args: [1],
     mass: 1,
