@@ -35,6 +35,8 @@ jobs:
 
       - name: Build project
         run: npm run build
+        env:
+          VITE_BASE_URL: /CrossSphere/
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v4
