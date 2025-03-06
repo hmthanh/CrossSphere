@@ -13,5 +13,5 @@ export default defineConfig({
       }
     }
   },
-  assetsInclude: ['**/*.hdr']
+  assetsInclude: ['**/*.hdr', '**/*.jpg']
 })

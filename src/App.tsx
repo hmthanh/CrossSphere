@@ -6,8 +6,6 @@ import { Physics, useSphere } from "@react-three/cannon"
 import { EffectComposer, N8AO, SMAA } from "@react-three/postprocessing"
 import { useControls } from "leva"
 import { Ref } from 'react'
-import crossTexture from '../public/cross.jpg'
-import hdriEnv from '../public/adamsbridge.hdr'
 
 const rfs = THREE.MathUtils.randFloatSpread
 const sphereGeometry = new THREE.SphereGeometry(1, 32, 32)
@@ -23,7 +21,7 @@ function App() {
         <Pointer />
         <Clump />
       </Physics>
-      <Environment files={hdriEnv} />
+      <Environment files={import.meta.env.BASE_URL + "adamsbridge.hdr"} />
       <EffectComposer enableNormalPass multisampling={0}>
         <N8AO halfRes color="black" aoRadius={2} intensity={1} aoSamples={6} denoiseSamples={4} />
         <SMAA />
@@ -34,7 +32,8 @@ function App() {
 
 function Clump({ mat = new THREE.Matrix4(), vec = new THREE.Vector3() }) {
   const { outlines } = useControls({ outlines: { value: 0.0, step: 0.01, min: 0, max: 0.05 } });
-  const texture = useTexture(crossTexture);
+  console.log("import.meta.env.BASE_URL", import.meta.env.BASE_URL)
+  const texture = useTexture(import.meta.env.BASE_URL + "cross.jpg");
   const mesh = useSphere(() => ({
     args: [1],
     mass: 1,
